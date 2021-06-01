@@ -1,0 +1,14 @@
+name: Test Erlang
+on: [push]
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        otp_version: ["24.0.2", "23.3.4.2", "22.3.4.20"]
+    steps:
+      - uses: actions/checkout@v2
+      - uses: erlef/setup-beam@v1
+        with:
+          otp-version: ${{ matrix.otp_version }}
+      - run: "rebar3 compile"
